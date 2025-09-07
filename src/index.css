@@ -2,41 +2,68 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Definition of the design system. All colors, gradients, fonts, etc should be defined here. 
-All colors MUST be HSL.
-*/
+/* Price Tracking Website Design System */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500;600;700&display=swap');
 
 @layer base {
   :root {
+    /* Core Colors */
     --background: 0 0% 100%;
     --foreground: 222.2 84% 4.9%;
-
+    
+    /* Splash Screen Colors */
+    --splash-bg: 220 13% 6%;
+    --splash-text: 0 0% 98%;
+    --splash-muted: 217 10% 64%;
+    
+    /* Main Screen Colors */
+    --main-bg-start: 220 14% 96%;
+    --main-bg-end: 0 0% 100%;
+    --main-text: 222.2 84% 4.9%;
+    
+    /* Brand Colors */
+    --brand-primary: 259 100% 65%;
+    --brand-secondary: 221 83% 53%;
+    --brand-accent: 142 76% 36%;
+    
+    /* Interactive Elements */
+    --input-bg: 0 0% 100%;
+    --input-border: 214.3 31.8% 91.4%;
+    --input-focus: 259 100% 65%;
+    
+    /* Gradients */
+    --gradient-primary: linear-gradient(135deg, hsl(var(--brand-primary)), hsl(var(--brand-secondary)));
+    --gradient-main: linear-gradient(180deg, hsl(var(--main-bg-start)), hsl(var(--main-bg-end)));
+    --gradient-button: linear-gradient(135deg, hsl(var(--brand-primary)), hsl(var(--brand-accent)));
+    
+    /* Shadows */
+    --shadow-soft: 0 4px 6px -1px hsl(var(--brand-primary) / 0.1);
+    --shadow-medium: 0 10px 15px -3px hsl(var(--brand-primary) / 0.1);
+    --shadow-strong: 0 25px 50px -12px hsl(var(--brand-primary) / 0.25);
+    
+    /* Animation Timings */
+    --transition-fast: 0.2s ease-out;
+    --transition-smooth: 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    --transition-splash: 1s ease-in-out;
+    
     --card: 0 0% 100%;
     --card-foreground: 222.2 84% 4.9%;
-
     --popover: 0 0% 100%;
     --popover-foreground: 222.2 84% 4.9%;
-
-    --primary: 222.2 47.4% 11.2%;
-    --primary-foreground: 210 40% 98%;
-
+    --primary: 259 100% 65%;
+    --primary-foreground: 0 0% 100%;
     --secondary: 210 40% 96.1%;
     --secondary-foreground: 222.2 47.4% 11.2%;
-
     --muted: 210 40% 96.1%;
     --muted-foreground: 215.4 16.3% 46.9%;
-
     --accent: 210 40% 96.1%;
     --accent-foreground: 222.2 47.4% 11.2%;
-
     --destructive: 0 84.2% 60.2%;
     --destructive-foreground: 210 40% 98%;
-
     --border: 214.3 31.8% 91.4%;
     --input: 214.3 31.8% 91.4%;
-    --ring: 222.2 84% 4.9%;
-
-    --radius: 0.5rem;
+    --ring: 259 100% 65%;
+    --radius: 0.75rem;
 
     --sidebar-background: 0 0% 98%;
 
@@ -100,6 +127,90 @@ All colors MUST be HSL.
   }
 
   body {
-    @apply bg-background text-foreground;
+    @apply bg-background text-foreground font-sans;
+    font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  }
+  
+  .font-serif {
+    font-family: 'Playfair Display', Georgia, serif;
+  }
+}
+
+@layer utilities {
+  /* Splash Screen Styles */
+  .splash-bg {
+    background: hsl(var(--splash-bg));
+    color: hsl(var(--splash-text));
+  }
+  
+  .splash-exit {
+    transform: translateY(-100%);
+    transition: transform var(--transition-splash);
+  }
+  
+  /* Main Screen Styles */
+  .main-gradient {
+    background: var(--gradient-main);
+  }
+  
+  /* Button Gradients */
+  .btn-gradient {
+    background: var(--gradient-button);
+    box-shadow: var(--shadow-soft);
+    transition: all var(--transition-smooth);
+  }
+  
+  .btn-gradient:hover {
+    box-shadow: var(--shadow-medium);
+    transform: translateY(-1px);
+  }
+  
+  /* Input Styles */
+  .input-pill {
+    background: hsl(var(--input-bg));
+    border: 2px solid hsl(var(--input-border));
+    border-radius: 50px;
+    transition: all var(--transition-smooth);
+  }
+  
+  .input-pill:focus {
+    border-color: hsl(var(--input-focus));
+    box-shadow: 0 0 0 3px hsl(var(--input-focus) / 0.1);
+  }
+  
+  /* Animation Keyframes */
+  @keyframes typing {
+    from { width: 0; }
+    to { width: 100%; }
+  }
+  
+  @keyframes fadeInUp {
+    from {
+      opacity: 0;
+      transform: translateY(30px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  
+  @keyframes float {
+    0%, 100% { transform: translateY(0px); }
+    50% { transform: translateY(-10px); }
+  }
+  
+  .animate-typing {
+    overflow: hidden;
+    white-space: nowrap;
+    animation: typing 2s steps(30, end);
+  }
+  
+  .animate-fade-in-up {
+    animation: fadeInUp 0.6s ease-out;
+  }
+  
+  .animate-float {
+    animation: float 3s ease-in-out infinite;
   }
 }
